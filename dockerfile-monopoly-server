@@ -1,4 +1,4 @@
-FROM node:16-alpine
+FROM dockerpull.org/node:16-alpine
 RUN npm config set registry https://registry.npmmirror.com/
 
 WORKDIR .
