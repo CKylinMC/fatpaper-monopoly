@@ -1,5 +1,5 @@
 # 基础镜像，包含了共享的操作
-FROM node:16-alpine AS base
+FROM dockerpull.org/node:16-alpine AS base
 WORKDIR /app
 COPY ./global.config.ts /app
 RUN npm config set registry https://registry.npmmirror.com/
@@ -20,7 +20,7 @@ COPY ./monopoly-client /app/monopoly-client
 RUN cd /app/monopoly-client && npm install && npm run build
 
 # 部署 nginx
-FROM nginx:stable-alpine
+FROM dockerpull.org/nginx:stable-alpine
 COPY --from=fatpaper-login-build /app/fatpaper-login/dist /var/www/fatpaper-login/
 COPY --from=monopoly-client-build /app/monopoly-client/dist /var/www/monopoly-client/
 COPY --from=monopoly-admin-build /app/monopoly-admin/dist /var/www/monopoly-admin/
